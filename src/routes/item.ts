@@ -1,6 +1,7 @@
 //arch de rutas para los articulos
 import { Request, Response, Router } from "express";
 import { deleteItem, getItem, getItems, postItem, updateItem } from "../controllers/item";
+import { logMiddleware } from "../middleware/log";
 
 const router = Router();
 
@@ -9,7 +10,7 @@ const router = Router();
 */
 router.get("/", getItems );
 
-router.get("/", getItem);
+router.get("/:id", logMiddleware, getItem);
 
 router.post("/", postItem);
 
