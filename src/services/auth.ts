@@ -17,16 +17,16 @@ const registerNewUser = async ({ email, password, name }: User) => {
     return registerNewUser;
 };
 
-const loginUser = async ({ email, password }: Auth) => {
+const loginUser = async ({ email, password }: Auth) => {//Auth es la interface de la cual toma
   const checkIs = await UserModel.findOne({ email });
   if (!checkIs) return "NOT_FOUND_USER";
 
-  const passwordHash = checkIs.password; //TODO el encriptado!
+  const passwordHash = checkIs.password; // el encriptado!
   const isCorrect = await verified(password, passwordHash);
 
-  if (!isCorrect) return "PASSWORD_INCORRECT";
+  if (!isCorrect) return "PASSWORD_INCORRECT";//si es incorrecto
 
-  const token = generateToken(checkIs.email);
+  const token = generateToken(checkIs.email);//si es correcto
   const data = {
     token,
     user: checkIs,
